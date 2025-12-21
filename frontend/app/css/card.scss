@@ -1,0 +1,21 @@
+.glow-container {
+  --spread: 60;
+}
+
+.glow-card {
+  --active: 0;
+  --start: 0;
+  border: 1px solid #27272a; // zinc-800
+  background: #18181b; // zinc-900
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-card:is(:hover, :focus-visible) {
+  border-color: #3f3f46; // zinc-700
+}
+
+.glows {
+  display: none;
+}
