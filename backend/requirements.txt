@@ -6,3 +6,4 @@ requests
 whitenoise
 gunicorn
 pillow
+resend

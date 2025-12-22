@@ -4,6 +4,7 @@ from rest_framework import status
 from django.core.mail import send_mail
 from django.conf import settings
 import requests
+import resend
 import os
 
 class ContactView(APIView):
@@ -16,13 +17,12 @@ class ContactView(APIView):
         if not name or not email or not user_message:
              return Response({'success': False, 'message': 'All fields are required.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        message_text = f"New message from {name}\n\nEmail: {email}\n\nMessage:\n\n{user_message}\n\n"
-
-        # Send Email
-        print(f"Attempting to send email to {os.getenv('EMAIL_ADDRESS')}...")
-        email_success = False
+        # Send Email via Resend API
+        print(f"Attempting to send email via Resend to {os.getenv('EMAIL_ADDRESS')}...")
+        resend.api_key = os.getenv('RESEND_API_KEY')
+        
         try:
-            # Construct HTML email similar to the Next.js template
+            # Construct HTML email
             html_message = f"""
               <div style="font-family: Arial, sans-serif; color: #333; padding: 20px; background-color: #f4f4f4;">
                 <div style="max-width: 600px; margin: auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
@@ -38,27 +38,24 @@ class ContactView(APIView):
               </div>
             """
             
-            send_mail(
-                subject=f"New Message From {name}",
-                message=message_text, # Plain text fallback
-                from_email=settings.EMAIL_HOST_USER, # Use the configured email address
-                recipient_list=[os.getenv('EMAIL_ADDRESS')],
-                html_message=html_message,
-                fail_silently=False,
-            )
-            print("Email sent successfully!")
-            email_success = True
+            params = {
+                "from": "onboarding@resend.dev",
+                "to": os.getenv('EMAIL_ADDRESS'),
+                "subject": f"New Message From {name}",
+                "html": html_message,
+                "reply_to": email,
+            }
+
+            resend.Emails.send(params)
+            print("Email sent successfully via Resend!")
+            return Response({'success': True, 'message': 'Message sent successfully!'}, status=status.HTTP_200_OK)
+
         except Exception as e:
-            print(f"Email Error: {str(e)}")
+            print(f"Resend Error: {str(e)}")
             return Response({
                 'success': False, 
-                'message': f'Failed to send message. Error: {str(e)}'
+                'message': f'Failed to send message via Resend. Error: {str(e)}'
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-        if email_success:
-            return Response({'success': True, 'message': 'Message sent successfully!'}, status=status.HTTP_200_OK)
-        
-        return Response({'success': False, 'message': 'Failed to send message due to unknown error.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class GoogleView(APIView):
     def post(self, request):
