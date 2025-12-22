@@ -40,14 +40,20 @@ function ContactForm() {
         userInput
       );
 
-      toast.success("Message sent successfully!");
-      setUserInput({
-        name: "",
-        email: "",
-        message: "",
-      });
+      if (res.data.success) {
+        toast.success("Message sent successfully!");
+        setUserInput({
+          name: "",
+          email: "",
+          message: "",
+        });
+      } else {
+        toast.error(res.data.message || "Failed to send message.");
+      }
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      console.error("Contact Form Error:", error);
+      const errorMessage = error?.response?.data?.message || error?.message || "An unexpected error occurred.";
+      toast.error(errorMessage);
     } finally {
       setIsLoading(false);
     };

@@ -19,6 +19,7 @@ class ContactView(APIView):
         message_text = f"New message from {name}\n\nEmail: {email}\n\nMessage:\n\n{user_message}\n\n"
 
         # Send Email
+        print(f"Attempting to send email to {os.getenv('EMAIL_ADDRESS')}...")
         email_success = False
         try:
             # Construct HTML email similar to the Next.js template
@@ -45,14 +46,19 @@ class ContactView(APIView):
                 html_message=html_message,
                 fail_silently=False,
             )
+            print("Email sent successfully!")
             email_success = True
         except Exception as e:
-            print(f"Email Error: {e}")
+            print(f"Email Error: {str(e)}")
+            return Response({
+                'success': False, 
+                'message': f'Failed to send message. Error: {str(e)}'
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         if email_success:
             return Response({'success': True, 'message': 'Message sent successfully!'}, status=status.HTTP_200_OK)
         
-        return Response({'success': False, 'message': 'Failed to send message.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'success': False, 'message': 'Failed to send message due to unknown error.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class GoogleView(APIView):
     def post(self, request):
