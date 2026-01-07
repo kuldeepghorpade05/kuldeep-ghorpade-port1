@@ -43,22 +43,11 @@ function HeroSection() {
           className="order-2 lg:order-1 flex flex-col items-start justify-center p-2 pb-20 md:pb-10 lg:pt-10"
         >
           <h1 className="text-3xl font-bold leading-10 text-white md:font-extrabold lg:text-[2.6rem] lg:leading-[3.5rem]">
-            Hello, <br />
-            This is {' '}
-            <span className=" text-[#4b5563]">{personalData.name}</span>
-            {` , I'm a Professional `}
-            <span className=" text-[#16f2b3]">
-              <Typewriter
-                options={{
-                  strings: personalData.designations || [personalData.designation],
-                  autoStart: true,
-                  loop: true,
-                  deleteSpeed: 50,
-                  delay: 75,
-                }}
-              />
-            </span>
+            Kuldeep Ghorpade - Backend & Cloud Engineer
           </h1>
+          <p className="text-xl mt-4 text-gray-300">
+            Python & Java Developer | AWS Cloud Specialist | DevOps Engineer
+          </p>
 
           <div className="my-12 flex items-center gap-5">
             {personalData.github && (

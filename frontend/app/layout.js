@@ -37,29 +37,39 @@ export default function RootLayout({ children }) {
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{
-                        __html: JSON.stringify({
-                            "@context": "https://schema.org",
-                            "@type": "Person",
-                            "name": "Kuldeep Ghorpade",
-                            "jobTitle": "Backend & Cloud Engineer",
-                            "url": "https://kuldeep-ghorpade-port1-fend.vercel.app",
-                            "sameAs": [
-                                "https://linkedin.com/in/yourprofile",
-                                "https://github.com/yourgithub"
-                            ],
-                            "knowsAbout": [
-                                "Python Development",
-                                "Java Programming",
-                                "Cloud Engineering",
-                                "DevOps Practices",
-                                "Network Engineering",
-                                "AWS Services",
-                                "Docker & Kubernetes",
-                                "Microservices Architecture",
-                                "Backend Systems"
-                            ],
-                            "description": "Backend and Cloud Engineer specializing in building scalable infrastructure with Python, Java, and modern DevOps tools."
-                        })
+                        __html: JSON.stringify([
+                            {
+                                "@context": "https://schema.org",
+                                "@type": "Person",
+                                "name": "Kuldeep Ghorpade",
+                                "jobTitle": "Backend & Cloud Engineer",
+                                "url": "https://kuldeep-ghorpade-port1-fend.vercel.app",
+                                "sameAs": [
+                                    "https://linkedin.com/in/yourprofile",
+                                    "https://github.com/yourgithub"
+                                ],
+                                "knowsAbout": [
+                                    "Python Development",
+                                    "Java Programming",
+                                    "Cloud Engineering",
+                                    "DevOps Practices",
+                                    "Backend Systems"
+                                ],
+                                "description": "Backend and Cloud Engineer specializing in scalable infrastructure.",
+                            },
+                            {
+                                "@context": "https://schema.org",
+                                "@type": "WebSite",
+                                "url": "https://kuldeep-ghorpade-port1-fend.vercel.app",
+                                "name": "Kuldeep Ghorpade Portfolio",
+                                "description": "Backend Engineer Portfolio showcasing projects and technical expertise.",
+                                "potentialAction": {
+                                    "@type": "SearchAction",
+                                    "target": "https://kuldeep-ghorpade-port1-fend.vercel.app/seo-case-study",
+                                    "query-input": "required name=search_term_string"
+                                }
+                            }
+                        ])
                     }}
                 />
             </head>

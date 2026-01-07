@@ -13,6 +13,11 @@ function Footer() {
           <p className="text-sm">
             © Developer Portfolio by <Link target="_blank" href="https://www.linkedin.com/in/kuldeep-ghorpade/" className="text-[#16f2b3]">Kuldeep Ghorpade</Link>
           </p>
+          <div className="flex items-center gap-5">
+            <Link href="/seo-case-study" className="text-sm hover:text-[#16f2b3] transition-colors">
+              SEO Case Study
+            </Link>
+          </div>
 
         </div>
       </div>
