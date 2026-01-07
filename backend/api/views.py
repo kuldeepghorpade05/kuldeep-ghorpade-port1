@@ -1,7 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django.core.mail import send_mail
 from django.conf import settings
 import requests
 import resend
@@ -18,8 +17,8 @@ class ContactView(APIView):
              return Response({'success': False, 'message': 'All fields are required.'}, status=status.HTTP_400_BAD_REQUEST)
 
         # Send Email via Resend API
-        print(f"Attempting to send email via Resend to {os.getenv('EMAIL_ADDRESS')}...")
-        resend.api_key = os.getenv('RESEND_API_KEY')
+        print(f"Attempting to send email via Resend to {settings.EMAIL_HOST_USER}...")
+        resend.api_key = settings.RESEND_API_KEY
         
         try:
             # Construct HTML email
@@ -39,16 +38,17 @@ class ContactView(APIView):
             """
             
             params = {
-                "from": "onboarding@resend.dev",
-                "to": os.getenv('EMAIL_ADDRESS'),
+                "from": "Portfolio Contact <onboarding@resend.dev>",
+                "to": settings.EMAIL_HOST_USER,
                 "subject": f"New Message From {name}",
                 "html": html_message,
                 "reply_to": email,
             }
-
-            resend.Emails.send(params)
+ 
+            r = resend.Emails.send(params)
             print("Email sent successfully via Resend!")
-            return Response({'success': True, 'message': 'Message sent successfully!'}, status=status.HTTP_200_OK)
+            print(f"Resend Response: {r}")
+            return Response({'success': True, 'message': 'Message sent successfully!', 'debug_info': str(r)}, status=status.HTTP_200_OK)
 
         except Exception as e:
             print(f"Resend Error: {str(e)}")

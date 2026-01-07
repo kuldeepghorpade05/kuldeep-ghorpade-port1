@@ -144,7 +144,9 @@ EMAIL_HOST_USER = os.getenv('EMAIL_ADDRESS')
 EMAIL_HOST_PASSWORD = os.getenv('GMAIL_PASSKEY')
 EMAIL_TIMEOUT = 10 # Timeout in seconds
 
+# Resend Settings
+RESEND_API_KEY = os.getenv('RESEND_API_KEY')
+
 # CORS and Allowed Hosts
-ALLOWED_HOSTS = ['*']
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
