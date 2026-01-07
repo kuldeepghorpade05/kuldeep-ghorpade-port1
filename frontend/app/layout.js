@@ -1,4 +1,3 @@
-
 import { Inter } from "next/font/google";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,29 +8,72 @@ import ParticlesBackground from "./components/helper/particles-background";
 import TerminalLoading from "./components/homepage/terminal-loading";
 import "./css/card.scss";
 import "./css/globals.scss";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Kuldeep Ghorpade | Portfolio",
-  description:
-    "This is the portfolio of Abu Said. I am a full stack developer and a self taught developer. I love to learn new things and I am always open to collaborating with others. I am a quick learner and I am always looking for new challenges.",
+    title: "Kuldeep Ghorpade | Backend & Cloud Engineer Portfolio",
+    description: "Backend Developer specializing in Python, Java, Cloud Engineering, DevOps, and Network Infrastructure. Building scalable systems with AWS, Docker, Kubernetes, and microservices architecture.",
+    keywords: ["backend developer", "python developer", "java developer", "cloud engineer", "devops engineer", "network engineer", "AWS", "Docker", "Kubernetes", "microservices"],
+    authors: [{ name: "Kuldeep Ghorpade" }],
+    openGraph: {
+        title: "Kuldeep Ghorpade - Backend & Cloud Engineering Portfolio",
+        description: "Backend and Cloud Engineer with expertise in Python, Java, AWS, and DevOps practices.",
+        type: "website",
+        url: "https://kuldeep-ghorpade-port1-fend.vercel.app",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Kuldeep Ghorpade - Backend Engineer Portfolio",
+        description: "Backend Developer specializing in Python, Cloud, and DevOps engineering.",
+    },
 };
 
 export default function RootLayout({ children }) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <TerminalLoading />
-        <ToastContainer />
-        <main className="min-h-screen relative mx-auto px-6 sm:px-12 lg:max-w-[70rem] xl:max-w-[76rem] 2xl:max-w-[92rem] text-white pt-24">
-          <ParticlesBackground />
-          <Navbar />
-          {children}
-          <ScrollToTop />
-        </main>
-        <Footer />
-      </body>
-
-    </html>
-  );
+    return (
+        <html lang="en" suppressHydrationWarning>
+            <head>
+                {/* Schema.org markup for search engines */}
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            "@context": "https://schema.org",
+                            "@type": "Person",
+                            "name": "Kuldeep Ghorpade",
+                            "jobTitle": "Backend & Cloud Engineer",
+                            "url": "https://kuldeep-ghorpade-port1-fend.vercel.app",
+                            "sameAs": [
+                                "https://linkedin.com/in/yourprofile",
+                                "https://github.com/yourgithub"
+                            ],
+                            "knowsAbout": [
+                                "Python Development",
+                                "Java Programming",
+                                "Cloud Engineering",
+                                "DevOps Practices",
+                                "Network Engineering",
+                                "AWS Services",
+                                "Docker & Kubernetes",
+                                "Microservices Architecture",
+                                "Backend Systems"
+                            ],
+                            "description": "Backend and Cloud Engineer specializing in building scalable infrastructure with Python, Java, and modern DevOps tools."
+                        })
+                    }}
+                />
+            </head>
+            <body className={inter.className}>
+                <TerminalLoading />
+                <ToastContainer />
+                <main className="min-h-screen relative mx-auto px-6 sm:px-12 lg:max-w-[70rem] xl:max-w-[76rem] 2xl:max-w-[92rem] text-white pt-24">
+                    <ParticlesBackground />
+                    <Navbar />
+                    {children}
+                    <ScrollToTop />
+                </main>
+                <Footer />
+            </body>
+        </html>
+    );
 }
